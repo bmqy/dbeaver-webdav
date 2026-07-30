@@ -78,8 +78,15 @@ https://bmqy.github.io/dbeaver-webdav/
 1. 构建项目。
 2. 在 DBeaver 中打开 `Help -> Install New Software...`。
 3. 选择 `Add...`，使用更新地址 `https://bmqy.github.io/dbeaver-webdav/`；本地调试时也可以选择 `Local...` 并使用生成的 `dist/` 目录。
+
+	![通过链接地址安装](https://image.bmqy.net/upload/2026-07/QQ20260730-162813.png)
+
 4. 选择 `DBeaver WebDAV 备份` 并完成安装。
-5. 重启 DBeaver。
+5. 出现信任提示时，选择信任 `Artifacts` 并继续安装。
+
+	![信任 Artifacts](https://image.bmqy.net/upload/2026-07/QQ20260730-161343.png)
+
+6. 重启 DBeaver。
 
 ## 注意事项
 
