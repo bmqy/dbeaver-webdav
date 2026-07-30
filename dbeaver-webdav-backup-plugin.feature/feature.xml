@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+    id="net.bmqy.dbeaver.webdav.backup.feature"
+    label="DBeaver WebDAV 备份"
+    version="0.0.5.qualifier"
+    provider-name="bmqy">
+
+    <description>
+        WebDAV backup and overwrite restore for DBeaver projects, scripts, and credentials.
+    </description>
+
+    <url>
+        <update label="DBeaver WebDAV 备份更新站点" url="https://bmqy.github.io/dbeaver-webdav/"/>
+    </url>
+
+    <plugin
+        id="net.bmqy.dbeaver.webdav.backup"
+        download-size="0"
+        install-size="0"
+        version="0.0.0"
+        unpack="false"/>
+</feature>

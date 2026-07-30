@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+    <feature id="net.bmqy.dbeaver.webdav.backup.feature" version="0.0.0">
+        <category name="net.bmqy.dbeaver.webdav.backup.category"/>
+    </feature>
+    <category-def name="net.bmqy.dbeaver.webdav.backup.category" label="DBeaver WebDAV 备份"/>
+</site>

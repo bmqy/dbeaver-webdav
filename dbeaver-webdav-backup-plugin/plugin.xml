@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+    <extension point="org.eclipse.ui.commands">
+        <category
+            id="net.bmqy.dbeaver.webdav.backup.category"
+            name="DBeaver WebDAV 备份"/>
+        <command
+            categoryId="net.bmqy.dbeaver.webdav.backup.category"
+            id="net.bmqy.dbeaver.webdav.backup.commands.backupNow"
+            name="立即备份"/>
+        <command
+            categoryId="net.bmqy.dbeaver.webdav.backup.category"
+            id="net.bmqy.dbeaver.webdav.backup.commands.restore"
+            name="恢复备份"/>
+        <command
+            categoryId="net.bmqy.dbeaver.webdav.backup.category"
+            id="net.bmqy.dbeaver.webdav.backup.commands.openPreferences"
+            name="WebDAV 备份设置"/>
+    </extension>
+
+    <extension point="org.eclipse.ui.handlers">
+        <handler
+            class="net.bmqy.dbeaver.webdav.backup.ui.BackupNowHandler"
+            commandId="net.bmqy.dbeaver.webdav.backup.commands.backupNow"/>
+        <handler
+            class="net.bmqy.dbeaver.webdav.backup.ui.RestoreBackupHandler"
+            commandId="net.bmqy.dbeaver.webdav.backup.commands.restore"/>
+        <handler
+            class="net.bmqy.dbeaver.webdav.backup.ui.OpenPreferencesHandler"
+            commandId="net.bmqy.dbeaver.webdav.backup.commands.openPreferences"/>
+    </extension>
+
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+            <menu id="net.bmqy.dbeaver.webdav.backup.menu" label="WebDAV 备份">
+                <command commandId="net.bmqy.dbeaver.webdav.backup.commands.backupNow" label="立即备份" style="push"/>
+                <command commandId="net.bmqy.dbeaver.webdav.backup.commands.restore" label="恢复备份..." style="push"/>
+                <separator name="settings" visible="true"/>
+                <command commandId="net.bmqy.dbeaver.webdav.backup.commands.openPreferences" label="设置..." style="push"/>
+            </menu>
+        </menuContribution>
+    </extension>
+
+    <extension point="org.eclipse.ui.preferencePages">
+        <page
+            class="net.bmqy.dbeaver.webdav.backup.ui.WebDavBackupPreferencePage"
+            id="net.bmqy.dbeaver.webdav.backup.preferencePage"
+            name="WebDAV 备份"/>
+    </extension>
+
+    <extension point="org.jkiss.dbeaver.pluginService">
+        <service class="net.bmqy.dbeaver.webdav.backup.WebDavBackupPluginService"/>
+    </extension>
+</plugin>

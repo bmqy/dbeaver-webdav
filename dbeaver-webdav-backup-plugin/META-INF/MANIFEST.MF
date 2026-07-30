@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DBeaver WebDAV 备份
+Bundle-SymbolicName: net.bmqy.dbeaver.webdav.backup;singleton:=true
+Bundle-Version: 0.0.5.qualifier
+Bundle-Activator: net.bmqy.dbeaver.webdav.backup.Activator
+Bundle-Vendor: bmqy
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Automatic-Module-Name: net.bmqy.dbeaver.webdav.backup
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.equinox.preferences,
+ org.eclipse.equinox.security,
+ org.eclipse.jface,
+ org.eclipse.swt,
+ org.eclipse.ui,
+ org.jkiss.dbeaver.model
+Import-Package: org.jkiss.dbeaver.runtime;resolution:=optional
+Bundle-ActivationPolicy: lazy

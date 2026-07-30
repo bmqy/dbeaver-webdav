@@ -1,0 +1,22 @@
+name: telegram message
+on: [push]
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    # 仅当 commit message 以 v 开头时执行
+    if: startsWith(github.event.head_commit.message, 'v')
+    steps:
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            #Github #dbeaver-webdav #DBeaver #WebDav #发布更新
+
+            发布人：${{ github.actor }}
+            提交消息: ${{ github.event.commits[0].message }}
+            提交项目: ${{ github.repository }}
+            查看变更: https://github.com/${{ github.repository }}/commit/${{github.sha}}
