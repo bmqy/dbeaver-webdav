@@ -1,0 +1,8 @@
+target/
+dist/
+.vscode/
+*.class
+.project
+.classpath
+.settings/
+.github/copilot-instructions.md
