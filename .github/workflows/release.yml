@@ -42,6 +42,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
@@ -50,12 +52,21 @@ jobs:
           java-version: "21"
           cache: maven
 
-      - name: Sync release version
+      - name: Sync build version
         shell: bash
-        if: needs.release-message.outputs.should_release == 'true'
         run: |
-          RELEASE_TAG="${{ needs.release-message.outputs.release_tag }}"
-          bash scripts/sync-release-version.sh "${RELEASE_TAG}"
+          if [[ "${{ needs.release-message.outputs.should_release }}" == "true" ]]; then
+            BUILD_VERSION="${{ needs.release-message.outputs.release_tag }}"
+          else
+            BUILD_VERSION="$(git tag --list 'v[0-9]*.[0-9]*.[0-9]*' --sort=-version:refname | head -n 1)"
+          fi
+
+          if [[ -z "${BUILD_VERSION}" ]]; then
+            echo "No release version tag found." >&2
+            exit 1
+          fi
+
+          bash scripts/sync-release-version.sh "${BUILD_VERSION}"
 
       - name: Build with Maven
         run: mvn -B clean verify
