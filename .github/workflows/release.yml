@@ -34,10 +34,10 @@ jobs:
           fi
 
   build-release:
-    name: Build update site and publish release
+    name: Build and publish update site
     runs-on: ubuntu-latest
     needs: release-message
-    if: needs.release-message.outputs.should_release == 'true'
+    if: github.ref == 'refs/heads/main' || needs.release-message.outputs.should_release == 'true'
 
     steps:
       - name: Checkout
@@ -52,6 +52,7 @@ jobs:
 
       - name: Sync release version
         shell: bash
+        if: needs.release-message.outputs.should_release == 'true'
         run: |
           RELEASE_TAG="${{ needs.release-message.outputs.release_tag }}"
           bash scripts/sync-release-version.sh "${RELEASE_TAG}"
@@ -62,6 +63,7 @@ jobs:
       - name: Package update site
         id: package
         shell: bash
+        if: needs.release-message.outputs.should_release == 'true'
         run: |
           RELEASE_TAG="${{ needs.release-message.outputs.release_tag }}"
 
@@ -73,6 +75,7 @@ jobs:
 
       - name: Upload workflow artifact
         uses: actions/upload-artifact@v4
+        if: needs.release-message.outputs.should_release == 'true'
         with:
           name: ${{ steps.package.outputs.archive_name }}
           path: ${{ steps.package.outputs.archive_name }}
@@ -80,6 +83,7 @@ jobs:
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
+        if: needs.release-message.outputs.should_release == 'true'
         with:
           tag_name: ${{ steps.package.outputs.release_tag }}
           target_commitish: ${{ github.sha }}
@@ -88,6 +92,7 @@ jobs:
 
       - name: Publish update site to gh-pages
         uses: peaceiris/actions-gh-pages@v4
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
