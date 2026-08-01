@@ -43,7 +43,6 @@
       border-radius: 8px;
       box-shadow: 0 1rem 2.5rem var(--shadow);
       padding: clamp(1.5rem, 5vw, 3rem);
-      padding-bottom: clamp(4rem, 6vw, 4.5rem);
     }
 
     h1 {
@@ -55,10 +54,6 @@
     }
 
     .version {
-      position: absolute;
-      right: clamp(1rem, 5vw, 3rem);
-      bottom: clamp(1rem, 5vw, 3rem);
-      z-index: 10;
       display: inline-flex;
       align-items: center;
       justify-content: flex-end;
@@ -76,6 +71,26 @@
       font-size: 0.78rem;
       font-weight: 600;
       box-shadow: 0 0.45rem 1.2rem rgba(70, 58, 35, 0.08);
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .github-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: currentColor;
     }
 
     p {
@@ -125,12 +140,20 @@
 </head>
 <body>
   <main>
-    <div class="version" id="release-meta">获取中...</div>
     <h1>DBeaver WebDAV 备份</h1>
     <p>这是 DBeaver WebDAV 备份插件的 p2 更新站点。请在 DBeaver 的 Install New Software 中使用下面的地址安装或更新插件。</p>
     <code id="update-site-url" role="button" tabindex="0" aria-label="复制更新站点地址">https://bmqy.github.io/dbeaver-webdav/</code>
     <div class="copy-status" id="copy-status" aria-live="polite"></div>
     <p><a href="content.jar">content.jar</a> 和 <a href="artifacts.jar">artifacts.jar</a> 已由更新站点生成，DBeaver 会自动读取这些元数据。</p>
+    <div class="footer-row">
+      <a class="github-link" href="https://github.com/bmqy/dbeaver-webdav" target="_blank" rel="noopener noreferrer">
+        <svg class="github-icon" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.64 5.47 7.71.4.08.55-.18.55-.39 0-.19-.01-.83-.01-1.5-2.01.45-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.16-.28-.15-.68-.53-.01-.54.63-.01 1.08.59 1.23.83.72 1.24 1.87.89 2.33.68.07-.53.28-.89.51-1.09-1.78-.21-3.64-.92-3.64-4.1 0-.91.32-1.65.82-2.23-.08-.21-.36-1.06.08-2.2 0 0 .67-.22 2.2.85a7.36 7.36 0 0 1 2-.28c.68 0 1.36.09 2 .28 1.53-1.07 2.2-.85 2.2-.85.44 1.14.16 1.99.08 2.2.51.58.82 1.32.82 2.23 0 3.19-1.87 3.89-3.65 4.1.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.47.55.39A8.14 8.14 0 0 0 16 8.13C16 3.64 12.42 0 8 0Z" />
+        </svg>
+        GitHub 仓库
+      </a>
+      <div class="version" id="release-meta">获取中...</div>
+    </div>
   </main>
   <script>
     const releaseMetaElement = document.getElementById("release-meta");
