@@ -6,3 +6,4 @@ dist/
 .classpath
 .settings/
 .github/copilot-instructions.md
+*.log
