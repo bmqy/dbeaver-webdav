@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DBeaver WebDAV 备份</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f3ea;
+      --panel: #fffdf8;
+      --text: #1e2a24;
+      --muted: #59665f;
+      --accent: #26785f;
+      --accent-strong: #15543f;
+      --border: #d8d0c2;
+      --shadow: rgba(70, 58, 35, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(38, 120, 95, 0.16), transparent 28rem),
+        linear-gradient(135deg, #f7f3ea 0%, #eaf1ea 52%, #f6efe1 100%);
+      display: grid;
+      justify-items: center;
+      align-items: start;
+      padding: clamp(3rem, 12vh, 6rem) 2rem 2rem;
+    }
+
+    main {
+      position: relative;
+      width: min(45rem, 100%);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 1rem 2.5rem var(--shadow);
+      padding: clamp(1.5rem, 5vw, 3rem);
+    }
+
+    h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(1.35rem, 5.25vw, 3rem);
+      line-height: 1;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .version {
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+      max-width: calc(100% - 2rem);
+      min-height: 1.75rem;
+      margin: 0;
+      padding: 0.28rem 0.55rem;
+      border: 1px solid rgba(89, 102, 95, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 253, 248, 0.78);
+      color: var(--muted);
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 0.78rem;
+      font-weight: 600;
+      box-shadow: 0 0.45rem 1.2rem rgba(70, 58, 35, 0.08);
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .github-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: currentColor;
+    }
+
+    p {
+      margin: 0 0 1.25rem;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.65;
+    }
+
+    code {
+      display: block;
+      overflow-wrap: anywhere;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #f3eee4;
+      color: var(--accent-strong);
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+      user-select: all;
+    }
+
+    code:hover,
+    code:focus-visible {
+      border-color: rgba(38, 120, 95, 0.58);
+      background: #f0eadf;
+      box-shadow: 0 0 0 3px rgba(38, 120, 95, 0.13);
+      outline: none;
+    }
+
+    .copy-status {
+      min-height: 1.4rem;
+      margin: 0.45rem 0 1.25rem;
+      color: var(--accent-strong);
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>DBeaver WebDAV 备份</h1>
+    <p>这是 DBeaver WebDAV 备份插件的 p2 更新站点。请在 DBeaver 的 Install New Software 中使用下面的地址安装或更新插件。</p>
+    <code id="update-site-url" role="button" tabindex="0" aria-label="复制更新站点地址">https://bmqy.github.io/dbeaver-webdav/</code>
+    <div class="copy-status" id="copy-status" aria-live="polite"></div>
+    <p><a href="content.jar">content.jar</a> 和 <a href="artifacts.jar">artifacts.jar</a> 已由更新站点生成，DBeaver 会自动读取这些元数据。</p>
+    <div class="footer-row">
+      <a class="github-link" href="https://github.com/bmqy/dbeaver-webdav" target="_blank" rel="noopener noreferrer">
+        <svg class="github-icon" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.64 5.47 7.71.4.08.55-.18.55-.39 0-.19-.01-.83-.01-1.5-2.01.45-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.16-.28-.15-.68-.53-.01-.54.63-.01 1.08.59 1.23.83.72 1.24 1.87.89 2.33.68.07-.53.28-.89.51-1.09-1.78-.21-3.64-.92-3.64-4.1 0-.91.32-1.65.82-2.23-.08-.21-.36-1.06.08-2.2 0 0 .67-.22 2.2.85a7.36 7.36 0 0 1 2-.28c.68 0 1.36.09 2 .28 1.53-1.07 2.2-.85 2.2-.85.44 1.14.16 1.99.08 2.2.51.58.82 1.32.82 2.23 0 3.19-1.87 3.89-3.65 4.1.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.47.55.39A8.14 8.14 0 0 0 16 8.13C16 3.64 12.42 0 8 0Z" />
+        </svg>
+        GitHub 仓库
+      </a>
+      <div class="version" id="release-meta">获取中...</div>
+    </div>
+  </main>
+  <script>
+    const releaseMetaElement = document.getElementById("release-meta");
+    const updateSiteUrlElement = document.getElementById("update-site-url");
+    const copyStatusElement = document.getElementById("copy-status");
+
+    const copyUpdateSiteUrl = async () => {
+      const updateSiteUrl = updateSiteUrlElement.textContent.trim();
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(updateSiteUrl);
+        } else {
+          const textArea = document.createElement("textarea");
+          textArea.value = updateSiteUrl;
+          textArea.setAttribute("readonly", "");
+          textArea.style.position = "fixed";
+          textArea.style.opacity = "0";
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          document.body.removeChild(textArea);
+        }
+
+        copyStatusElement.textContent = "已复制";
+      } catch {
+        copyStatusElement.textContent = "复制失败，请手动选择地址";
+      }
+    };
+
+    updateSiteUrlElement.addEventListener("click", copyUpdateSiteUrl);
+    updateSiteUrlElement.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        copyUpdateSiteUrl();
+      }
+    });
+
+    fetch("version.json", { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("version metadata unavailable");
+        }
+
+        return response.json();
+      })
+      .then(({ version, updatedAt }) => {
+        if (!version) {
+          throw new Error("version missing");
+        }
+
+        const releaseVersion = String(version).replace(/-SNAPSHOT$/, "");
+        const updateDate = updatedAt || "日期暂不可用";
+        releaseMetaElement.textContent = `v${releaseVersion} · ${updateDate}`;
+      })
+      .catch(() => {
+        releaseMetaElement.textContent = "版本暂不可用 · 日期暂不可用";
+      });
+  </script>
+</body>
+</html>
